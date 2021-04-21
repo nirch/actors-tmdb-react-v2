@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import ActorCard from '../../components/ActorCard/ActorCard';
@@ -24,7 +25,11 @@ function ActorsPage(props) {
 
         if (newSearchText) {
             // Here we should call TMDB
-            setResults(["Result 1", "Result 2", "Result 3"]);
+
+            const searchURL = "https://api.themoviedb.org/3/search/person?api_key=53d2ee2137cf3228aefae083c8158855&query=" + newSearchText;
+            axios.get(searchURL).then(response => {
+                setResults(response.data.results);
+            });
         } else {
             setResults([]);
         }
@@ -32,7 +37,7 @@ function ActorsPage(props) {
 
     function addActor(resultIndex) {
         // Adding the actor to the view
-        setActors(actors.concat(new ActorModel(results[resultIndex])));
+        setActors(actors.concat(new ActorModel(results[resultIndex].name)));
 
         // Cleaning up the SearchBox
         setResults([]);
@@ -46,7 +51,7 @@ function ActorsPage(props) {
                     placeholder="Search actors..." 
                     searchText={searchText} 
                     onSearchChange={handleSearchChange}
-                    results={results}
+                    results={results.map(result => result.name)}
                     onResultSelected={addActor}/>
                 {actors.map(actor => <ActorCard actor={actor}/>)}
             </Container>

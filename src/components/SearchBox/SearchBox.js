@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, ListGroup } from 'react-bootstrap';
 import './SearchBox.css'
 
+
 function SearchBox({placeholder, searchText, onSearchChange, results, onResultSelected}) {
     return (
         <div className="c-searchbox">
