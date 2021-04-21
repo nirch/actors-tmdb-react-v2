@@ -10,12 +10,16 @@ function ActorsPage(props) {
         new ActorModel("Brad Pitt"),
         new ActorModel("Bruce Willis"),
         new ActorModel("Gal Gadot"),
-    ])
+    ]);
+    const [searchText, setSearchText] = useState("");
 
     return (
         <div class="p-actors">
             <Container>
-                <SearchBox/>
+                <SearchBox 
+                    placeholder="Search actors..." 
+                    searchText={searchText} 
+                    onSearchChange={newSearchText => setSearchText(newSearchText)}/>
                 {actors.map(actor => <ActorCard actor={actor}/>)}
             </Container>
         </div>
