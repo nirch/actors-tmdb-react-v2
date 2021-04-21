@@ -3,3 +3,13 @@
 /* .c-searchbox .form-control {
     padding: 50px;
 } */
+
+
+.c-searchbox {
+    position: relative;
+}
+
+.c-searchbox > .result-box {
+    position: absolute;
+    width: 100%;
+}
