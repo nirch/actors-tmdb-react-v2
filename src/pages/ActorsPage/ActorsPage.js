@@ -15,7 +15,29 @@ function ActorsPage(props) {
         new ActorModel("Gal Gadot"),
     ]);
     const [searchText, setSearchText] = useState("");
-    const [searchResult, setSearchResults] = useState(["Result 1", "Result 2", "Result 3"])
+    const [results, setResults] = useState([]);
+
+    // "Result 1", "Result 2", "Result 3"
+
+    function handleSearchChange(newSearchText) {
+        setSearchText(newSearchText);
+
+        if (newSearchText) {
+            // Here we should call TMDB
+            setResults(["Result 1", "Result 2", "Result 3"]);
+        } else {
+            setResults([]);
+        }
+    }
+
+    function addActor(resultIndex) {
+        // Adding the actor to the view
+        setActors(actors.concat(new ActorModel(results[resultIndex])));
+
+        // Cleaning up the SearchBox
+        setResults([]);
+        setSearchText("");
+    }
 
     return (
         <div class="p-actors">
@@ -23,8 +45,9 @@ function ActorsPage(props) {
                 <SearchBox 
                     placeholder="Search actors..." 
                     searchText={searchText} 
-                    onSearchChange={newSearchText => setSearchText(newSearchText)}
-                    results={searchResult}/>
+                    onSearchChange={handleSearchChange}
+                    results={results}
+                    onResultSelected={addActor}/>
                 {actors.map(actor => <ActorCard actor={actor}/>)}
             </Container>
         </div>
