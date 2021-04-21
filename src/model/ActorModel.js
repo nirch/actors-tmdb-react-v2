@@ -1,6 +1,7 @@
 
 export default class ActorModel {
-    constructor(name) {
+    constructor(name, img) {
         this.name = name;
+        this.img = "https://image.tmdb.org/t/p/w500" + img;
     }
 }

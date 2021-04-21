@@ -1,20 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import ActorCard from '../../components/ActorCard/ActorCard';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import ActorModel from '../../model/ActorModel';
 import './ActorsPage.css'
 
 function ActorsPage(props) {
-    const [actors, setActors] = useState([
-        new ActorModel("Brad Pitt"),
-        new ActorModel("Bruce Willis"),
-        new ActorModel("Gal Gadot"),
-        new ActorModel("Gal Gadot"),
-        new ActorModel("Gal Gadot"),
-        new ActorModel("Gal Gadot"),
-    ]);
+    const [actors, setActors] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [results, setResults] = useState([]);
 
@@ -37,7 +30,7 @@ function ActorsPage(props) {
 
     function addActor(resultIndex) {
         // Adding the actor to the view
-        setActors(actors.concat(new ActorModel(results[resultIndex].name)));
+        setActors(actors.concat(new ActorModel(results[resultIndex].name, results[resultIndex].profile_path)));
 
         // Cleaning up the SearchBox
         setResults([]);
@@ -53,7 +46,9 @@ function ActorsPage(props) {
                     onSearchChange={handleSearchChange}
                     results={results.map(result => result.name)}
                     onResultSelected={addActor}/>
-                {actors.map(actor => <ActorCard actor={actor}/>)}
+                <Row>
+                    {actors.map(actor => <Col lg={3} md={6}><ActorCard actor={actor}/></Col>)}
+                </Row>
             </Container>
         </div>
     );
